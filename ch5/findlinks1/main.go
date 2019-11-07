@@ -9,10 +9,13 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"os"
 
 	"golang.org/x/net/html"
 )
+
+var out io.Writer = os.Stdout
 
 func main() {
 	doc, err := html.Parse(os.Stdin)
