@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"os"
@@ -18,15 +19,26 @@ func main() {
 		os.Exit(1)
 	}
 	outline(nil, doc)
+	fmt.Fprintf(out, "%s", printmap())
 }
 
 func outline(stack []string, n *html.Node) {
-	if n.Type == html.ElementNode && n.Data == "script" {
+	if n.Type == html.ElementNode {
 		stack = append(stack, n.Data) // push tag
 		counts[n.Data]++
-		fmt.Fprintln(out, stack)
+		//fmt.Fprintf(out, "%s", counts)
 	}
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
 		outline(stack, c)
 	}
+}
+
+func printmap() string {
+
+	b := new(bytes.Buffer)
+	for key, value := range counts {
+		fmt.Fprintf(b, "%s=%d&&", key, value)
+	}
+
+	return b.String()
 }
