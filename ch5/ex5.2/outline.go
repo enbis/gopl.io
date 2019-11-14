@@ -24,6 +24,7 @@ func main() {
 
 func outline(stack []string, n *html.Node) {
 	if n.Type == html.ElementNode {
+		fmt.Println(n.Data)
 		stack = append(stack, n.Data) // push tag
 		counts[n.Data]++
 		//fmt.Fprintf(out, "%s", counts)

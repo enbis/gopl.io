@@ -47,10 +47,13 @@ func topoSort(m map[string][]string) []string {
 	var visitAll func(items []string)
 
 	visitAll = func(items []string) {
+		//items = array of map keys
 		for _, item := range items {
+			fmt.Println("item ", item)
 			if !seen[item] {
 				seen[item] = true
 				visitAll(m[item])
+				fmt.Println("visit all ", m[item])
 				order = append(order, item)
 			}
 		}
@@ -61,7 +64,9 @@ func topoSort(m map[string][]string) []string {
 		keys = append(keys, key)
 	}
 
+	fmt.Println("Key before sorting ", keys)
 	sort.Strings(keys)
+	fmt.Println("Key after sorting ", keys)
 	visitAll(keys)
 	return order
 }

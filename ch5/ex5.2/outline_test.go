@@ -11,6 +11,7 @@ import (
 	"testing"
 )
 
+const input0 = " "
 const input1 = `
 <script>
 (function() {
@@ -21,8 +22,6 @@ const input1 = `
 </script>`
 
 const input2 = `
-</div><!-- .container -->
-</main><!-- #page -->
 <footer>
   <div class="Footer ">
     <img class="Footer-gopher" src="/lib/godoc/images/footer-gopher.jpg" alt="The Go Gopher">
@@ -50,6 +49,12 @@ var testCases = []struct {
 	want        int
 	mapv        string
 }{
+	{
+		description: "input zero",
+		input:       input0,
+		want:        0,
+		mapv:        "script",
+	},
 	{
 		description: "input easy",
 		input:       input1,
@@ -129,7 +134,7 @@ func TestMain(t *testing.T) {
 					fmt.Println("out ", val)
 
 					if val != tc.want {
-						t.Fatalf("TestFindone %s \ngot: %d want: %d", tc.input, out, tc.want)
+						t.Fatalf("TestFindone %s \ngot: %d want: %d", tc.input, val, tc.want)
 					}
 				})
 			}
